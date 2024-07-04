@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}My Top 10 Movies{% endblock %}
+
+{% block content %}
+
+    <!-- Title -->
+        <div class="container-fluid">
+            <div class="row px-5 py-5">
+                <div class="col-12">
+                    <h1 class="heading">My Movies Ranked List</h1>
+                    <p class="description">These are all the movies I've watched ranked.</p>
+                </div>
+            </div>
+        </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row col-12">
+            {% for movie in movies %}
+                <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="front" style="background-image: url('{{ movie.img_url }}');">
+                            <p class="large">{{ movie.ranking }}</p>
+                        </div>
+                        <div class="back">
+                            <div>
+                                <div class="title">{{ movie.title }} <span class="release_date">({{ movie.year }})</span></div>
+                                    <div class="rating">
+                                        <label>{{ movie.rating }}</label>
+                                        <i class="fas fa-star star"></i>
+                                    </div>
+                                    <p class="review">"{{ movie.review }}"</p>
+                                    <p class="overview">{{ movie.description }}</p>
+                                <a href="{{ url_for('edit', id=movie.id) }}" class="btn btn-outline-success">Update</a>
+                                <a href="{{ url_for('delete', id=movie.id) }}" class="btn btn-outline-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container text-center">
+        <div class="addbook">
+            <a href="{{ url_for('add') }}" class="btn btn-outline-primary my-5">Add Movie</a>
+        </div>
+    </div>
+{% endblock %}

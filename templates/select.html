@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Movie{% endblock %}
+
+{% block content %}
+<div class="container py-5 px-5">
+    <h1 class="heading">Select Movie</h1>
+    {% for result in results: %}
+        {% if result.poster_path == None:%}
+            <p> Result with No Image </p>
+        {% else: %}
+            <p>
+                <a href="{{ url_for('new_movie', title=result.original_title,
+                                                 year=result.release_date.split('-')[0],
+                                                 overview=result.overview,
+                                                 image=result.poster_path) }}">
+                    {{ result.original_title }} - {{ result.release_date }}
+                </a>
+            </p>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
